@@ -22,7 +22,6 @@ def start_message(message):
                      'Добро пожаловать, я Helper_Bot!'
                      ' Выберите интересующую Вас категорию.',
                      reply_markup=markup)
-    print(message.chat.id)
 
 
 @bot.message_handler(commands=['help'])
