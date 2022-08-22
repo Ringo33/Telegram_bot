@@ -5,13 +5,10 @@ def currency_rate():
     url = 'https://cdn.cur.su/api/cbr.json'
     usd = round(requests.get(url).json().get('rates').get('RUB'), 2)
     euro = round((1 / requests.get(url).json().get('rates').get('EUR')) * usd, 2)
-    # data = {
-    #     'USD': f'Курс USD = {usd} руб.',
-    #     'EURO': f'Курс EURO = {euro} руб.'
-    # }
     data = f'Курс USD = {usd} руб. \n' \
            f'Курс EURO = {euro} руб.'
     return data
+
 
 def cryptocurrency_rate():
     url = 'https://api.coingecko.com/api/v3/simple/price'
@@ -32,7 +29,3 @@ def cryptocurrency_rate():
            f'Курс ETC = {etc} USD \n' \
            f'Курс DOGE = {doge} USD'
     return data
-
-print(cryptocurrency_rate())
-
-print(currency_rate())

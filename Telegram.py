@@ -1,11 +1,7 @@
 import os
-import requests
-import schedule as schedule
 import telebot
 from telebot import types
 import vk, currency, sms
-import time
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,12 +18,12 @@ def start_message(message):
     buttonB = types.InlineKeyboardButton('Валюта', callback_data='currency')
     buttonC = types.InlineKeyboardButton('Криптовалюта', callback_data='cryptocurrency')
     markup.row(buttonA, buttonB, buttonC)
-    # markup.row(buttonC)
     bot.send_message(message.chat.id,
                      'Добро пожаловать, я Helper_Bot!'
                      ' Выберите интересующую Вас категорию.',
                      reply_markup=markup)
     print(message.chat.id)
+
 
 @bot.message_handler(commands=['help'])
 def start_message(message):
@@ -40,10 +36,8 @@ def start_message(message):
     bot.send_message(message.chat.id, 'Перейдите на сайт', reply_markup=markup)
 
 
-
 @bot.callback_query_handler(func=lambda call: True)
 def handle(call):
-    # bot.send_message(call.message.chat.id, 'Data: {}'.format(str(call.data)))
     data = call.data
     if data == 'movie':
         image = vk.vk_status(-14785431)['image']
@@ -61,42 +55,12 @@ def handle(call):
     bot.answer_callback_query(call.id)
 
 
-# @bot.message_handler(content_types=['text'])
-# def send_text(message):
-#     try:
-#         bot.send_photo(message.chat.id, photo='https://img5.goodfon.ru/wallpaper/nbig/6/55/vzgliad-temnyi-fon-kotenok-korzina-kotiata-kotionok-korzinka.jpg', caption='It works!')
-#         status = vk.vk_status(message.text)
-#         if status == 0:
-#             bot.send_message(message.chat.id, 'Пользователь не в сети')
-#         else:
-#             bot.send_message(message.chat.id, 'Пользователь в сети')
-#     except IndexError:
-#         print('Ошибка')
+@bot.message_handler(content_types=['text'])
+def send_text(message):
+    if message.text.lower() in ['привет', 'добрый день']:
+        bot.send_message(message.chat.id, 'Привет, мой друг')
+    elif message.text.lower() in ['пока', 'до свидания']:
+        bot.send_message(message.chat.id, 'Прощай, друг')
 
-
-    # #
-    # if message.text.lower() == 'привет':
-    #     bot.send_message(message.chat.id, 'Привет, мой друг')
-    # elif message.text.lower() == 'пока':
-    #     bot.send_message(message.chat.id, 'Прощай, друг')
 
 bot.polling(none_stop=True)
-
-
-
-# 1322636677
-
-
-# def test():
-#     print('Ghjdthrf')
-#
-# def main():
-#     schedule.every(2).seconds.do(test)
-#
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(2)
-#
-# if __name__ == '__main__':
-#     main()
-

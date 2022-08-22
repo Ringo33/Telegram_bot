@@ -1,7 +1,6 @@
 import os
 import requests
 from dotenv import load_dotenv
-import pprint
 
 load_dotenv()
 
@@ -23,5 +22,3 @@ def vk_status(data):
         'image': image
     }
     return data
-
-# pprint.pprint(vk_status(-14785431))
