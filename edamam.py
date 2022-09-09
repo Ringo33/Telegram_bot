@@ -27,13 +27,12 @@ def recipe(data):
     label_ru = translator.translate(label, src='en', dest='ru').text
     ingredient = ', \n- '.join(response['ingredientLines'])
     ingredient_ru = translator.translate(ingredient, src='en', dest='ru').text
-
     text = f'{label_ru} \n \n' \
            f'Ингредиенты: \n' \
            f'- {ingredient_ru} \n \n' \
            f'{url_recipe}'
     data = {
         'image': image,
-        'text': text,
+        'text': text
     }
     return data
