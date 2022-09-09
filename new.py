@@ -6,7 +6,7 @@ def test():
         'username': 'admin',
         'password': 'Stranger2020_',
     }
-    response = requests.post('http://127.0.0.1:8000/api-token-auth/', data=payload)
+    response = requests.post('http://127.0.0.1:8000/api/v1/api-token-auth/', data=payload)
     result = response.json()
     print(result)
     return result
@@ -14,13 +14,13 @@ def test():
 
 def test2():
     headers = {
-        'Authorization': 'Token 97d414bcf4f1fd0f2be7dd0707b858210798ed34'
+        'Authorization': 'Token 44b77bb6694dc9e24638e60fe167f2fe753dd304'
     }
     payload = {
-        'text': 'Проверка связи'
+        "text": "Проверка 2"
     }
-    response = requests.get('http://127.0.0.1:8000/api/v1/posts/', headers=headers)
-    print(response)
+    response = requests.post('http://127.0.0.1:8000/api/v1/posts/', headers=headers, params=payload)
+    print(response.text)
     return response
 
 
