@@ -1,7 +1,8 @@
 import os
 import telebot
 from telebot import types
-import vk, currency, sms, edamam
+
+import vk, currency, sms, edamam, chat_gpt
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -56,20 +57,23 @@ def handle(call):
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
+    # if message:
+    #     try:
+    #         data = edamam.recipe(message.text.lower())
+    #         bot.send_photo(message.chat.id,
+    #                        photo=data['image'],
+    #                        caption=data['text']
+    #                        )
+    #     except:
+    #         bot.send_message(message.chat.id, 'Рецепт не найден')
+
     if message:
         try:
-            data = edamam.recipe(message.text.lower())
-            bot.send_photo(message.chat.id,
-                           photo=data['image'],
-                           caption=data['text']
-                           )
+            data = chat_gpt.chat_gpt(message.text.lower())
+            bot.send_message(message.chat.id, data['text'])
         except:
             bot.send_message(message.chat.id, 'Рецепт не найден')
 
-    # if message.text.lower() in ['привет', 'добрый день']:
-    #     bot.send_message(message.chat.id, 'Привет, мой друг')
-    # elif message.text.lower() in ['пока', 'до свидания']:
-    #     bot.send_message(message.chat.id, 'Прощай, друг')
 
 
 bot.polling(none_stop=True)
